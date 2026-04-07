@@ -1,0 +1,35 @@
+services:
+  qwen2api:
+    container_name: qwen2api
+    image: rfym21/qwen2api:latest
+    restart: always
+    ports:
+      - "2116:3000"
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    env_file:
+      - .env
+    networks:
+      - qwen2api
+      - apinetwork
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: qwen2api-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - qwen2api
+
+volumes:
+  redis-data:
+
+networks:
+  qwen2api:
+    name: qwen2api
+  apinetwork:
+    name: apinetwork
