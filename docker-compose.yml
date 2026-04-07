@@ -8,6 +8,7 @@ services:
     volumes:
       - ./data:/app/data
       - ./logs:/app/logs
+      - ./caches:/app/caches
     env_file:
       - .env
     depends_on:
